@@ -13,37 +13,34 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-
-public class DegreeSelectionView extends JFrame
-{
+public class DegreeSelectionView extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	JPanel fullPanel = new JPanel(new GridLayout(2,0,0,0));
-	
+	JPanel fullPanel = new JPanel(new GridLayout(2, 0, 0, 0));
+
 	JPanel buttonPanel = new JPanel();
-	JPanel scrollPanels = new JPanel(new GridLayout(0,2,0,0));
-	
+	JPanel scrollPanels = new JPanel(new GridLayout(0, 2, 0, 0));
+
 	JPanel basePanel;
 	JLabel baseLabel = new JLabel("Base");
 	JList<Person> basePersonList = new JList<Person>();
 	JScrollPane baseScrollPanel = new JScrollPane(basePersonList);
 	Person basePerson;
-	
+
 	JPanel targetPanel;
 	JLabel targetLabel = new JLabel("Target");
 	JList<Person> targetPersonList = new JList<Person>();
 	JScrollPane targetScrollPanel = new JScrollPane(targetPersonList);
 	Person targetPerson;
-	
+
 	JButton okButton = new JButton("Ok");
-	
-	public DegreeSelectionView()
-	{
+
+	public DegreeSelectionView() {
 		setTitle("Pick a base case and a target");
-		
+
 		fullPanel = new JPanel();
 		basePanel = new JPanel();
 		targetPanel = new JPanel();
@@ -52,56 +49,50 @@ public class DegreeSelectionView extends JFrame
 		targetPanel.setLayout(new BoxLayout(targetPanel, BoxLayout.Y_AXIS));
 		basePersonList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		targetPersonList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		Map<String,Person> totalRosterMap = new LinkedHashMap<String,Person>();
-		for(Identification id:DataBaseModel.getJListOfIdentifications().values())
-		{
-			for(Season season:id.getSeasonList().values())
-			{
-				for(String personKey:season.getRosterMap().keySet())
-				{
+
+		Map<String, Person> totalRosterMap = new LinkedHashMap<String, Person>();
+		for (Identification id : DataBaseModel.getJListOfIdentifications().values()) {
+			for (Season season : id.getSeasonList().values()) {
+				for (String personKey : season.getRosterMap().keySet()) {
 					MapClass.putInMapListIfAbsent(totalRosterMap, personKey, season.getRosterMap().get(personKey));
 				}
 			}
 		}
-		
+
 		ArrayList<Person> personList = new ArrayList<Person>(totalRosterMap.values());
 		Collections.sort(personList);
 		basePersonList.setListData(personList.toArray(new Person[0]));
 		basePanel.add(baseLabel);
 		basePanel.add(baseScrollPanel);
-		
+
 		targetPersonList.setListData(personList.toArray(new Person[0]));
 		targetPanel.add(targetLabel);
 		targetPanel.add(targetScrollPanel);
-		
+
 		scrollPanels.add(basePanel);
 		scrollPanels.add(targetPanel);
-		
+
 		buttonPanel.add(okButton);
-		
+
 		fullPanel.add(scrollPanels);
 		fullPanel.add(buttonPanel);
-		
+
 		add(fullPanel);
-		setLocation(400,200);
-			
+		setLocation(400, 200);
+
 		pack();
 		setVisible(true);
 	}
-	
-	public Person getBaseSelected()
-	{
+
+	public Person getBaseSelected() {
 		return this.basePersonList.getSelectedValue();
 	}
-	
-	public Person getTargetSelected()
-	{
+
+	public Person getTargetSelected() {
 		return this.targetPersonList.getSelectedValue();
 	}
-	
-	public JButton getOkButton()
-	{
+
+	public JButton getOkButton() {
 		return okButton;
 	}
 }
