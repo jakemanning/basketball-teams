@@ -1581,11 +1581,14 @@ public class Controller {
 
 				ArrayList<ArrayList<Person>> personList = baseCase.getShortestPath(targetCase, 0);
 				degreeSelectionView.setVisible(false);
-				if (personList == null) {
+				if (personList.size() < 1) {
 					System.out.println("There is no connection");
 				} else {
-					degreeSeparationView = new DegreeSeparationView(personList.get(0));
-					setDegreeSeparationView(degreeSeparationView);
+					for(ArrayList<Person> list: personList) {
+						
+						degreeSeparationView = new DegreeSeparationView(list);
+						setDegreeSeparationView(degreeSeparationView);
+					}
 				}
 			} else {
 				System.out.println("You must select a base AND a target Person");
