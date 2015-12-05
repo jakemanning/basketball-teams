@@ -1015,7 +1015,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			if (mainView.teamSelected != null) {
 				@SuppressWarnings("unused")
-				PieChart app = new PieChart(mainView.teamSelected.getRosterMap().values(),"Players from " + mainView.teamSelected.getTeamName());
+				PieChart app = new PieChart(mainView.teamSelected.getRosterMap().values(),
+						"Players from " + mainView.teamSelected.getTeamName());
 			} else if (mainView.peopleSelected != null || !mainView.peopleSelected.isEmpty()) {
 				@SuppressWarnings("unused")
 				PieChart app = new PieChart(mainView.peopleSelected, "Players Selected");
