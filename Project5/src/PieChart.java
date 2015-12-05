@@ -6,10 +6,10 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -31,21 +31,21 @@ import javax.swing.text.StyleContext;
  */
 public class PieChart extends JFrame {
 	private static final long serialVersionUID = 1L;
-	private List<Person> peopleList;
+	private Collection<Person> peopleList;
 	private ArrayList<Integer> ageList;
 
 	/**
 	 * Construct a Pie Chart of ages within given data.
 	 * <P>
 	 * 
-	 * @param rosterPassed
+	 * @param collection
 	 *            Team roster of Persons passed from the User.
 	 * @param stringPassed
 	 *            Particular instance of the Pie Chart.
 	 */
-	public PieChart(List<Person> rosterPassed, String stringPassed) {
+	public PieChart(Collection<Person> collection, String stringPassed) {
 		super("Distribution of Ages of " + stringPassed);
-		peopleList = rosterPassed;
+		peopleList = collection;
 		setSize(800, 400);
 		setLocation(70, 70);
 		setVisible(true);
