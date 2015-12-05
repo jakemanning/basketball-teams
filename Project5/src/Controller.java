@@ -1013,9 +1013,12 @@ public class Controller {
 
 	private class PieChartListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (mainView.peopleSelected != null || !mainView.peopleSelected.isEmpty()) {
+			if (mainView.teamSelected != null) {
 				@SuppressWarnings("unused")
-				PieChart app = new PieChart(mainView.peopleSelected, "People");
+				PieChart app = new PieChart(mainView.teamSelected.getRosterMap().values(),"Players from " + mainView.teamSelected.getTeamName());
+			} else if (mainView.peopleSelected != null || !mainView.peopleSelected.isEmpty()) {
+				@SuppressWarnings("unused")
+				PieChart app = new PieChart(mainView.peopleSelected, "Players Selected");
 			} else {
 				System.out.println("You must select something");
 			}
@@ -1584,8 +1587,8 @@ public class Controller {
 				if (personList.size() < 1) {
 					System.out.println("There is no connection");
 				} else {
-					for(ArrayList<Person> list: personList) {
-						
+					for (ArrayList<Person> list : personList) {
+
 						degreeSeparationView = new DegreeSeparationView(list);
 						setDegreeSeparationView(degreeSeparationView);
 					}
