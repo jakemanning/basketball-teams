@@ -579,7 +579,7 @@ public class Person implements Comparable<Person>, Serializable {
 	}
 
 	public ArrayList<ArrayList<Person>> getShortestPath(Person target, int degrees) {
-		if (degrees > 3) {
+		if (degrees > 2) {
 			return null;
 		}
 
