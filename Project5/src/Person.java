@@ -61,6 +61,8 @@ public class Person implements Comparable<Person>, Serializable {
 	private static int shortestPathSize = Integer.MAX_VALUE;
 
 	private Map<Integer, Season> seasonList = new LinkedHashMap<Integer, Season>();
+	
+	public Season season;
 
 	/**
 	 * A Constructor which allows a person to be initialized with any desired
@@ -570,6 +572,7 @@ public class Person implements Comparable<Person>, Serializable {
 
 				if (!personKey.equalsIgnoreCase(this.plainText)) {
 					MapClass.putInMapListIfAbsent(playedInMap, personKey, season.getRosterMap().get(personKey));
+					this.season = season;
 				}
 			}
 		}
@@ -579,7 +582,7 @@ public class Person implements Comparable<Person>, Serializable {
 	}
 
 	public ArrayList<ArrayList<Person>> getShortestPath(Person target, int degrees) {
-		if (degrees > 3) {
+		if (degrees > 2) {
 			return null;
 		}
 
@@ -639,6 +642,7 @@ public class Person implements Comparable<Person>, Serializable {
 	 * 
 	 * @return a String containing the life History Data in a Person (String)
 	 */
+	@Override
 	public String toString() {
 		String stringToReturn = this.fullName + "," + this.dateOfBirth + "," + this.cityOfBirth.getCityName() + ","
 				+ this.stateOfBirth;

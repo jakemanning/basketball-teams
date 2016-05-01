@@ -45,7 +45,7 @@ public class WriteAndReadFile {
 		ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
 		this.model = (DataBaseModel) objectInputStream.readObject();
-
+		// TODO: Work
 		DataBaseModel.setJListOfPeople((Map<String, Person>) objectInputStream.readObject());
 		DataBaseModel.setJListOfStates((Map<String, State>) objectInputStream.readObject());
 		DataBaseModel.setJListOfCities((Map<String, City>) objectInputStream.readObject());

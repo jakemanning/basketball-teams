@@ -916,6 +916,7 @@ public class Controller {
 				File selectedFile = chooser.getSelectedFile();
 
 				try {
+					// TODO: Work
 					System.out.println("Importing......");
 					write = new WriteAndReadFile(model, selectedFile.getName(), false);
 					setModel(write.getModel());
@@ -1015,7 +1016,8 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			if (mainView.teamSelected != null) {
 				@SuppressWarnings("unused")
-				PieChart app = new PieChart(mainView.teamSelected.getRosterMap().values(),"Players from " + mainView.teamSelected.getTeamName());
+				PieChart app = new PieChart(mainView.teamSelected.getRosterMap().values(),
+						"Players from " + mainView.teamSelected.getTeamName());
 			} else if (mainView.peopleSelected != null || !mainView.peopleSelected.isEmpty()) {
 				@SuppressWarnings("unused")
 				PieChart app = new PieChart(mainView.peopleSelected, "Players Selected");
@@ -1543,13 +1545,19 @@ public class Controller {
 	private class ClearListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			// TODO: Something is wrong with Clearing and Map/PieChart data
 			mainView.placesSaved = false;
 			mainView.peopleSaved = false;
 			mainView.teamsSaved = false;
-			DataBaseModel.getJListOfCities().clear();
-			DataBaseModel.getJListOfStates().clear();
-			DataBaseModel.getJListOfPersons().clear();
-			DataBaseModel.getJListOfIdentifications().clear();
+//			DataBaseModel.getJListOfCities().clear();
+//			DataBaseModel.getJListOfStates().clear();
+//			DataBaseModel.getJListOfPersons().clear();
+//			DataBaseModel.getJListOfIdentifications().clear();
+			
+			DataBaseModel.setJListOfCities(null);
+			DataBaseModel.setJListOfIdentifications(null);
+			DataBaseModel.setJListOfPeople(null);
+			DataBaseModel.setJListOfStates(null);
 
 			mainView.getPlaceListModel().clear();
 			mainView.placeList.setListData(new City[0]);
@@ -1585,12 +1593,17 @@ public class Controller {
 				ArrayList<ArrayList<Person>> personList = baseCase.getShortestPath(targetCase, 0);
 				degreeSelectionView.setVisible(false);
 				if (personList.size() < 1) {
-					System.out.println("There is no connection");
+					JOptionPane.showMessageDialog(null, "There is no connection", "Loading",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					for (ArrayList<Person> list : personList) {
 
 						degreeSeparationView = new DegreeSeparationView(list);
 						setDegreeSeparationView(degreeSeparationView);
+						// TODO: Work on this
+//						for(Person p: list) {
+//							System.out.println(p.season);
+//						}
 					}
 				}
 			} else {
