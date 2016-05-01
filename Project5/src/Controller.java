@@ -916,6 +916,7 @@ public class Controller {
 				File selectedFile = chooser.getSelectedFile();
 
 				try {
+					// TODO: Work
 					System.out.println("Importing......");
 					write = new WriteAndReadFile(model, selectedFile.getName(), false);
 					setModel(write.getModel());
@@ -1599,6 +1600,10 @@ public class Controller {
 
 						degreeSeparationView = new DegreeSeparationView(list);
 						setDegreeSeparationView(degreeSeparationView);
+						// TODO: Work on this
+//						for(Person p: list) {
+//							System.out.println(p.season);
+//						}
 					}
 				}
 			} else {
