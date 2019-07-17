@@ -1,16 +1,41 @@
 # BasketballPlayerTeams
-<h2>Instructions:</h2>
-Run the program through the driver. You move left to right in this program. Begin by looking at the 'Places' column. You may either add your own cities (with latitude and longitudes), or you may load a pre- arranged list from the files provided. If you choose this option, first select 'File' -> 'Load' (ignoring any save requests if you would not like to save your data), and choose 'Places,' then choosing the cities.csv file. Repeat instructions for the players column (players.csv), and the teams column (teams2.csv). You may also do a shortcut by selecting 'File' -> 'Load' the 'OutputFile.bin' file, which will automatically load all three of the columns. If you would like to clear all of the lists, use the 'File' -> 'Clear All' option. You may not edit any of the pre-arranged items, but you may add your own items and have the ability to edit these. 
 
-To graph people, select one or more people in the people column (using the shift key), and then select 'Graph' -> 'Pie Chart' or 'Map'. Pie chart will show a distribution of the ages of the people selected, and the Map will show the birth city of each person selected. Additionally you may pick a single team, and have the ability to graph every single member on that team during that year, as well as the team's headquarters location. 
+This java app parses details about NBA players from included csv files: [cities.csv](https://github.com/jakemanning/basketball-teams/blob/master/Project5/cities.csv), [players.csv](https://github.com/jakemanning/basketball-teams/blob/master/Project5/players.csv), and [teams2.csv](https://github.com/jakemanning/basketball-teams/blob/master/Project5/teams2.csv)
 
+Interface was designed using Java Swing and the MVC pattern.
+
+### CSV files
+- cities.csv: A list of cities and states and their coordinates.
+- players.csv: A list of NBA basketball players with name, DOB, hometown, and Date of death (if relevant)
+- teams2.csv: A list of NBA basketball teams with team name, location, and the list of players that were on the team in a given year 
+
+The files had quite a few errors and had to be 'cleaned' when parsing. 
+
+### App
+![Homescreen](https://github.com/jakemanning/basketball-teams/blob/master/demo-pictures/Screen%20Shot%202019-07-16%20at%2010.18.43%20PM.png)
+
+We had to be able to load data from csv files, as well as being able to add/edit/delete any data we needed. The app also had to save the current list at any given time to either csv files or a single binary file. 
+
+The app had to be able to graph a pie chart with the distribution of ages of the players you select, using joda time to handle datetimes.
+
+![Pie chart](https://github.com/jakemanning/basketball-teams/blob/master/demo-pictures/Screen%20Shot%202019-07-16%20at%2010.30.04%20PM.png)
+
+Another requirement was the ability to map out the locations of a teams hometown vs the team location (example below).
+We had a list of players and their associated hometown coordinates, the issue was to actually create a map using these coordinates. Our solution was to download an empty map of the US, and manually test several known locations on the map (the greater variance in pixel position the better) by approximating the position with our mouse and comparing the pixel values, thereby creating a linear approximation for the locations.
+![Team map](https://github.com/jakemanning/basketball-teams/blob/master/demo-pictures/Screen%20Shot%202019-07-16%20at%2010.42.08%20PM.png)
+
+Finally, the app had to determine the degree of separation between players. 
+```
 We define degree of separation DS between players informally, as follows. 
 DS (A, A) = 0
 DS (A, B) = 1 if A and B played for the same team in the same year.
 DS (A, C) = 2 if A and C did not play for the same team in the same year but there is some player B for which DS (A, B) = 1 and DS (B, C) = 1.
   Etc.
 Even more informally, degree of separation simply means the number of steps it takes to get from one player to another, counting other players as steps if they played on the same team in the same year.
+```
+Finding the shortest degree of separation between Danny Ferry and Sundiata Gaines:
+![Degree of Separation](https://github.com/jakemanning/basketball-teams/blob/master/demo-pictures/Screen%20Shot%202019-07-16%20at%2010.54.04%20PM.png)
 
-The 'Degree of Separation' button below the Players column allows for users to select two players. One player is the base case and the other is the target. We are to find the smallest degree of separation between two users, that is, the least number of steps it takes to get from one basketball player to another.
+The app calculates all shortest paths between players. As you can see below, the DOS between these players is 3.
 
-You may delete any items from any list. If you deleted a city, and player associated with that city will also be deleted, as well as any team associated with that team or city. Interface was designed using MVC design pattern.
+![DOS of 3](https://github.com/jakemanning/basketball-teams/blob/master/demo-pictures/Screen%20Shot%202019-07-16%20at%2010.54.10%20PM.png)
